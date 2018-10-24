@@ -14,11 +14,40 @@ img {
   max-width: 100%;
   height: auto;
 }
+ul, li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none; }
+
+a {
+  text-decoration: none;
+  -webkit-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  cursor: pointer; }
+a:hover {
+  text-decoration: none; }
+
+a[href^="tel"] {
+  color: white; }
+
+*:focus, *.active, *:active, *:visited, button, input, select {
+  outline: 0 !important;
+  text-decoration: none !important; }
+
+*:hover {
+  outline: 0 !important;
+  text-decoration: none !important; }
+
+button, a {
+  cursor: pointer; }
+
 
 .wrapper {
+  width: 100%;
   max-width: 290px;
   margin: 0 auto;
-
+  position: relative;
   @media (min-width: 480px) {
     max-width: 440px;
   }
@@ -48,10 +77,48 @@ img {
 //===============header===============
 
 .header {
-  margin-bottom: 30px;
+  padding-top: 31px;
+  padding-bottom: 31px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center; }
+
+.header__logo {
+  display: block;
+  width: 302px;
+  height: 81px;
+  margin: auto;
+  margin-bottom: 47px;
+  margin-top: 30px;
+
+  @media (min-width: 768px) {
+    margin-top: 0;
+  }
 }
 
+.header__logo:hover {
+  opacity: 0.7; }
+
+
+
 //===============main===============
+.main {
+  padding-bottom: 130px; }
+
 .picture__list {
   @extend %list;
 
@@ -65,11 +132,29 @@ img {
 
 }
 
+.picture__item::before {
+  content: '';
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("../img/zoom.png"), rgba(0, 0, 0, 0.2);
+  -webkit-background-size: 20px;
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 100; }
+.picture__item:hover::before {
+  display: block; }
+
 .picture__item {
   width: 210px;
   height: 120px;
   background-color: #231f20;
   margin: 0 auto;
+  position: relative;
 
   &:not(:last-child) {
     margin-bottom: 20px;
@@ -123,8 +208,193 @@ img {
   margin: 0 auto;
 }
 
+.header__form{
+  display: flex;
+  justify-content: space-between;
+  max-width: 570px;
+  margin: auto;
+}
+
+.form__input {
+  width: calc(100% - 120px);
+  max-width: 450px;
+  height: 25px;
+  line-height: 25px;
+  font-size: 10px;
+  color: #6d6e71;
+  padding: 0 16px;
+  border: 2px solid #bbbcbf;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  margin-right: 14px;
+  font-family: "Roboto", sans-serif;
+  -moz-placeholder-color: #6d6e71;
+  -ms-input-placeholder-color: #6d6e71; }
+.form__input ::-webkit-input-placeholder {
+  color: #6d6e71; }
+.form__input ::-moz-placeholder {
+  color: #6d6e71; }
+
+.btn {
+  padding: 0 21px;
+  border: none;
+  background: #cddc39;
+  color: #fff;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 25px;
+  height: 25px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px; }
+.btn:hover {
+  background: #bcc41c; }
+
+.show-more {
+  display: none;
+  min-width: 146px;
+  margin: auto;
+  margin-top: 30px; }
+// тут еще надо сформулировать то условие по которому будет отображаться кнопка, возможно если li в списке больше 0
+.show-more.active {
+  display: block;
+}
+
+.header__favorites {
+  color: #673ab7;
+  font-size: 16px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding-left: 20px;
+  background: url("../img/icon.png") no-repeat left center; }
+
 //===============modal===============
 
 .modal-backdrop {
-  display: none;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  opacity: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  background: rgba(0, 0, 0, 0.4);
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+  transition: all 0.4s ease-in-out; }
+
+.modale-open .modal-backdrop{
+  z-index: 1000;
+  opacity: 1; }
+
+.modal {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  @media (min-width: 768px) {
+    width: 70%;
+    height: 70%;
+  }
+
+  @media (min-width: 1024px) {
+  }
 }
+
+body:not(.modale-open) .modal__img {
+  height: -webkit-calc(100% - 50px);
+  height: calc(100% - 50px);
+  width: 100%;
+  opacity: 0;
+  -webkit-transition: all 0.6s ease-in-out 0.3s;
+  -o-transition: all 0.6s ease-in-out 0.3s;
+  transition: all 0.6s ease-in-out 0.3s;
+  -o-object-fit: cover;
+  object-fit: cover; }
+
+.modale-open .modal__img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  opacity: 1;
+  @media (min-width: 768px) {
+    height: calc(100% - 65px);
+  }
+}
+
+.modal__list {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  z-index: 1000;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  padding: 15px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #673ab7;
+  -webkit-border-radius: 22px;
+  border-radius: 22px;
+  width: 114px;
+
+  @media (min-width: 768px) {
+    bottom: 0;
+  }
+}
+
+.modal__item{
+  line-height: 0;
+}
+.modal__item button{
+  border: none;
+  height: 12px;
+  width: 12px;
+  background-repeat: no-repeat;
+  -webkit-background-size: contain;
+  background-size: contain;
+  background-position: center; }
+.pop-up__btn:hover {
+  opacity: 0.7; }
+
+.modal__prev {
+  background: url("/src/img/prev.png"), transparent;
+  width: 8px; }
+.modal__next {
+  background: url("/src/img/next.png"), transparent;
+  width: 8px; }
+
+.modal__select {
+  background: url("/src/img/star.png"), transparent; }
+
+.modal__close {
+  background: url("/src/img/close.png"), transparent; }
+
+.modal.active .modal__select {
+  -webkit-transform: scale(1.6);
+  -ms-transform: scale(1.6);
+  transform: scale(1.6); }
