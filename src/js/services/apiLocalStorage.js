@@ -1,15 +1,16 @@
+import { isNumber } from "util";
+
 const LOCALSTORAGE = (w => {
   if (!w) return;
 
-  const isActive = 'localStorage' in w;
+  const isActive = "localStorage" in w;
 
   const get = key => {
     try {
       const serializedState = localStorage.getItem(key);
-
       return serializedState === null ? undefined : JSON.parse(serializedState);
     } catch (err) {
-      console.error('Get state error: ', err);
+      console.error("Get state error: ", err);
     }
   };
 
@@ -18,7 +19,7 @@ const LOCALSTORAGE = (w => {
       const serializedState = JSON.stringify(value);
       localStorage.setItem(key, serializedState);
     } catch (err) {
-      console.error('Set state error: ', err);
+      console.error("Set state error: ", err);
     }
   };
 
@@ -26,7 +27,23 @@ const LOCALSTORAGE = (w => {
     try {
       const serializedState = localStorage.removeItem(key);
     } catch (err) {
-      console.error('Get state error: ', err);
+      console.error("Get state error: ", err);
+    }
+  };
+
+  const getAll = () => {
+    try {
+      let elements = [];
+      let element = {};
+      for (const key in localStorage) {
+        if (!isNaN(Number(key))) {
+          element = JSON.parse(localStorage.getItem(key));
+          elements.push(element);
+        }
+      }
+      return elements;
+    } catch (err) {
+      console.error("GetAll state error: ", err);
     }
   };
 
@@ -35,12 +52,13 @@ const LOCALSTORAGE = (w => {
     get,
     set,
     remove,
+    getAll
   };
 
   return publicAPI;
 })(window);
 
-export const keyLS = 'pictureList';
+export const keyLS = LOCALSTORAGE.getAll; //'pictureList'; // all favorive images
 export const isActiveLS = LOCALSTORAGE.isActive;
 export const getLS = LOCALSTORAGE.get;
 export const setLS = LOCALSTORAGE.set;
