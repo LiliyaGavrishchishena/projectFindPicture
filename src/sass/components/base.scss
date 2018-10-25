@@ -276,6 +276,9 @@ button, a {
 .favorites--active .favorites{
   display: block;
 }
+.favorites--active .picture{
+  display: none;
+}
 .favorites__title{
   color: #673ab7;
   font-family: "Roboto", sans-serif ;
