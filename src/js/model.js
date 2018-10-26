@@ -11,21 +11,19 @@ export default class Model {
   constructor() {
     this.images = [];
     this.page = 1;
-    this.request = "";
+    this.lastRequest = "";
   }
 
   getRequest(request) {
-    if (this.request === request && request !== "") {
+    if (this.lastRequest === request && request !== "") {
       this.page++;
-
       return getImages(request, this.page).then(data => {
         this.images = [...new Set([...this.images, ...data])];
-        console.log(data);
         return data;
       });
     } else {
       this.page = 1;
-      this.request = request;
+      this.lastRequest = request;
       this.images = [];
 
       return getImages(request, this.page).then(data => {
@@ -40,7 +38,6 @@ export default class Model {
 
   addToFavorite(imageID) {
     const favoriteElement = this.images.find(elem => {
-      console.log(elem);
       return String(elem.id) === String(imageID);
     });
 

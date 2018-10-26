@@ -4,14 +4,16 @@ export default class Controller {
     this._model = model;
 
     this._view.refs.form.addEventListener(
-      'submit',
+      "submit",
       this.handleFormSubmit.bind(this)
     );
 
     this._view.refs.showMoreBtn.addEventListener(
-      'click',
+      "click",
       this.handleShowMore.bind(this)
     );
+
+    this._view.refs.headerLogo.addEventListener("click",this.handleHeaderLogo.bind(this));
   }
 
   handleFormSubmit(e) {
@@ -19,7 +21,7 @@ export default class Controller {
     const input = this._view.refs.input;
 
     this._model.getRequest(input.value).then(createdItems => {
-      if(createdItems === undefined) return;
+      if (createdItems === undefined) return;
       this._view.init(createdItems);
     });
 
@@ -29,11 +31,16 @@ export default class Controller {
   handleShowMore(e) {
     e.preventDefault();
     const input = this._view.refs.input;
-
-    this._model.getRequest(input.value).then(createdItems => {
-      if(createdItems === undefined) return;
-      this._view.add(createdItems);
-    });
+    if (this._model.lastRequest === input.value) {
+      this._model.getRequest(input.value).then(createdItems => {
+        if (createdItems === undefined) return;
+        this._view.add(createdItems);
+      });
+    }
   }
-
+  handleHeaderLogo(e){
+    e.preventDefault();
+    this._view.init([]);
+    this._view.refs.input.value="";
+  }
 }
