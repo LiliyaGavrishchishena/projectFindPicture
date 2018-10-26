@@ -15,7 +15,6 @@ export default class Model {
   }
 
   getRequest(request) {
-
     if (this.request === request && request !== "") {
       this.page++;
 
@@ -24,7 +23,6 @@ export default class Model {
         console.log(data);
         return data;
       });
-
     } else {
       this.page = 1;
       this.request = request;
@@ -33,9 +31,7 @@ export default class Model {
       return getImages(request, this.page).then(data => {
         return (this.images = data);
       });
-
     }
-
   }
 
   getFavoriteList() {
@@ -43,14 +39,12 @@ export default class Model {
   }
 
   addToFavorite(imageID) {
-
     const favoriteElement = this.images.find(elem => {
       console.log(elem);
       return String(elem.id) === String(imageID);
     });
 
     if (!getLS(imageID)) setLS(imageID, favoriteElement);
-
   }
 
   removeFromFavorite(imageID) {
