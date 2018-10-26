@@ -356,6 +356,7 @@ body:not(.modale-open) .modal__img {
 }
 
 .modal__list {
+  @extend %list;
   position: absolute;
   bottom: 15px;
   left: 50%;

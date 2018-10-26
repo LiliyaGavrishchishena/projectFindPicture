@@ -4,25 +4,24 @@ import {
   getLS,
   setLS,
   removeLS
-} from "./services/apiLocalStorage";
-import { getImages } from "./services/api_pixabay";
+} from './services/apiLocalStorage';
+import { getImages } from './services/api_pixabay';
 
 export default class Model {
   constructor() {
     this.images = [];
     this.page = 1;
-    this.request = "";
+    this.request = '';
   }
 
   getRequest(request) {
-
-    if (this.request === request && request !== "") {
+    if (this.request === request && request !== '') {
       this.page++;
 
       return getImages(request, this.page).then(data => {
-        return (this.images = [...new Set([...this.images, ...data])]);
+        this.images = [...new Set([...this.images, ...data])];
+        return data;
       });
-
     } else {
       this.page = 1;
       this.request = request;
@@ -31,9 +30,7 @@ export default class Model {
       return getImages(request, this.page).then(data => {
         return (this.images = data);
       });
-
     }
-
   }
 
   getFavoriteList() {
@@ -41,14 +38,12 @@ export default class Model {
   }
 
   addToFavorite(imageID) {
-
     const favoriteElement = this.images.find(elem => {
       console.log(elem);
       return String(elem.id) === String(imageID);
     });
 
     if (!getLS(imageID)) setLS(imageID, favoriteElement);
-
   }
 
   removeFromFavorite(imageID) {
