@@ -23,15 +23,17 @@ export default class Controller {
       this._view.init(createdItems);
     });
 
-    input.value = '';
+    //input.value = '';
   }
 
   handleShowMore(e) {
     e.preventDefault();
-    this._model.request
-    const val = this._model.request;
+    const input = this._view.refs.input;
 
-    console.log(val);
+    this._model.getRequest(input.value).then(createdItems => {
+      if(createdItems === undefined) return;
+      this._view.add(createdItems);
+    });
   }
 
 }

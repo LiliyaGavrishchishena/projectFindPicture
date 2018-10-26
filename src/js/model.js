@@ -20,7 +20,9 @@ export default class Model {
       this.page++;
 
       return getImages(request, this.page).then(data => {
-        return (this.images = [...new Set([...this.images, ...data])]);
+        this.images = [...new Set([...this.images, ...data])];
+        console.log(data);
+        return data;
       });
 
     } else {
