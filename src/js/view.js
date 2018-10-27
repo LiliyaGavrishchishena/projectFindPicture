@@ -19,7 +19,7 @@ export default class View {
     this.refs.next = document.querySelector('.js-next');
     this.refs.select = document.querySelector('.js-select');
     this.refs.close = document.querySelector('.js-close');
-
+    this.refs.headerLogo = document.querySelector(".header__logo");
   }
 
   init(items) {
