@@ -13,6 +13,7 @@ export default class View {
     this.refs.delete = document.querySelector('.js-delete');
     this.refs.listFavorites = document.querySelector('.picture__list.favorites__list');
     this.refs.btnFavourite = document.querySelector('.header__favorites');
+    this.refs.modaleImage = document.querySelector('.modal__img');
     this.refs.home = document.querySelector('.js-home');
     this.refs.prev = document.querySelector('.js-prev');
     this.refs.next = document.querySelector('.js-next');
