@@ -251,7 +251,31 @@ button, a {
   border-radius: 12px; }
 .btn:hover {
   background: #bcc41c; }
-
+.picture__item .picture__btn{
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+.favorites--active  .picture__item::before {
+    content: none;
+  }
+.favorites--active  .picture__item  .picture__btn{
+  background: url("/src/img/close.png"), rgba(0, 0, 0, 0.6);
+  background-position: right 10px top 10px;
+  background-size: auto;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  border-radius: 0;
+}
+.favorites--active .picture__item:hover .picture__btn{
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
 .show-more {
   display: none;
   min-width: 146px;
@@ -264,13 +288,14 @@ button, a {
 
 .header__favorites {
   color: #673ab7;
-  font-family: "Roboto", sans-serif ;
+  font-family: "Roboto", sans-serif;
   font-size: 16px;
   position: absolute;
   right: 30px;
   top: 30px;
   padding-left: 20px;
-  background: url("../img/icon.png") no-repeat left center; }
+  background: url ("../../img/close.png"), rgba(0, 0, 0, 0.6);
+}
 
 .favorites{
   display: none;
