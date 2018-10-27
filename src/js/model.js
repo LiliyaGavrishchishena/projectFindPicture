@@ -45,8 +45,8 @@ export default class Model {
     const favoriteElement = this.images.find(elem => {
       return String(elem.id) === String(imageID);
     });
-
     if (!getLS(imageID)) setLS(imageID, favoriteElement);
+    return favoriteElement;
   }
 
   removeFromFavorite(imageID) {
