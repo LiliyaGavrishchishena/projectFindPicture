@@ -4,12 +4,12 @@ export default class Controller {
     this._model = model;
 
     this._view.refs.form.addEventListener(
-      'submit',
+      "submit",
       this.handleFormSubmit.bind(this)
     );
 
     this._view.refs.showMoreBtn.addEventListener(
-      'click',
+      "click",
       this.handleShowMore.bind(this)
     );
 
@@ -47,7 +47,7 @@ export default class Controller {
       }
     });
 
-    input.value = '';
+    //input.value = '';
   }
 
   handleShowMore(e) {
