@@ -65,19 +65,33 @@ export default class Controller {
   }
 
   popUpOpen(e) {
-      const target = e.target;
-      const targetImg = target.querySelector('img');
-      if (target.nodeName !== 'LI') return;
-      this._view.refs.page.classList.add('modale-open');
-      this._view.refs.modaleImage.setAttribute('src', targetImg.dataset.fullview);
-      this._view.refs.modaleImage.setAttribute('alt', targetImg.getAttribute('alt'));
-      this._view.refs.modaleImage.setAttribute('id', targetImg.getAttribute('id'));
-      //console.log(this._model.getRequest(this))
-      // console.log(this._view.refs.pictList);
+    const target = e.target;
+    const targetImg = target.querySelector('img');
+    if (target.nodeName !== 'LI') return;
+    this._view.refs.page.classList.add('modale-open');
+    this._view.refs.modaleImage.setAttribute('src', targetImg.dataset.fullview);
+    this._view.refs.modaleImage.setAttribute('alt', targetImg.getAttribute('alt'));
+    this._view.refs.modaleImage.setAttribute('id', targetImg.getAttribute('id'));
+
+    const activeImgUrl = this._view.refs.modaleImage.getAttribute('src');
+    const itemList = this._view.refs.pictList.querySelectorAll('img');
+      Array.from(itemList).map(img => {
+          if(img.dataset.fullview === activeImgUrl) {
+              const currentNumber = Array.from(itemList).indexOf(img);
+              if (currentNumber + 1 === itemList.length) {
+                  this._view.refs.next.setAttribute('disabled', 'disabled');
+              }
+              if (currentNumber === 0) {
+                  this._view.refs.prev.setAttribute('disabled', 'disabled');
+              }
+          }
+      });
   }
 
   popUpClose () {
     this._view.refs.page.classList.remove('modale-open');
+    this._view.refs.prev.removeAttribute('disabled');
+    this._view.refs.next.removeAttribute('disabled');
   }
 
   popUpNext(){
@@ -89,15 +103,16 @@ export default class Controller {
           if(img.dataset.fullview === activeImgUrl){
               const currentNumber = Array.from(itemList).indexOf(img);
               const next = Array.from(itemList)[currentNumber + 1];
-              
-              this._view.refs.modaleImage.setAttribute('src', next.dataset.fullview);
-              if(currentNumber + 1 > itemList.length){
-                  this._view.refs.next.setAttribute('disabled', 'disabled');
-                  this._view.refs.modaleImage.setAttribute('src', activeImgUrl);
-                  console.log(currentNumber + 1 < itemList.length);
+              if(currentNumber + 1 < itemList.length){
+                  console.log("Номер следующего слайда меньше длины");
+                  this._view.refs.next.removeAttribute('disabled');
+                  this._view.refs.prev.removeAttribute('disabled');
+                  this._view.refs.modaleImage.setAttribute('src', next.dataset.fullview);
               }
-              console.log(currentNumber + 1 > itemList.length);
-
+              if(currentNumber + 1 === itemList.length - 1){
+                  console.log("Номер следующего слайда Равен длине");
+                  this._view.refs.next.setAttribute('disabled', 'disabled');
+              }
       }
       });
   }
@@ -110,9 +125,15 @@ export default class Controller {
                 const currentNumber = Array.from(itemList).indexOf(img);
                 const next = Array.from(itemList)[currentNumber - 1];
                 this._view.refs.modaleImage.setAttribute('src', next.dataset.fullview);
-                // if(currentNumber - 1 > 0){
-                //     this._view.refs.prev.setAttribute('disabled', 'disabled')
-                // }
+                if(currentNumber - 1 > 0){
+                    //console.log('Номер предыдущего слайда:',currentNumber - 1, '>0')
+                    this._view.refs.next.removeAttribute('disabled');
+                    this._view.refs.modaleImage.setAttribute('src', next.dataset.fullview);
+                }
+                else if(currentNumber - 1 === 0){
+                    //console.log('Номер предыдущего слайда:',currentNumber - 1, '=0')
+                    this._view.refs.prev.setAttribute('disabled', 'disabled');
+                }
             }
         });
     }

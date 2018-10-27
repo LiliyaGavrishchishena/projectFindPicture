@@ -43,7 +43,6 @@ button, a {
   width: 100%;
   max-width: 290px;
   margin: 0 auto;
-  position: relative;
   @media (min-width: 480px) {
     max-width: 440px;
   }
@@ -268,8 +267,8 @@ button, a {
   font-family: "Roboto", sans-serif ;
   font-size: 16px;
   position: absolute;
-  right: 0;
-  top: 0;
+  right: 30px;
+  top: 30px;
   padding-left: 20px;
   background: url("../img/icon.png") no-repeat left center; }
 
@@ -410,7 +409,10 @@ body:not(.modale-open) .modal__img {
 .modal__next {
   background: url("/src/img/next.png"), transparent;
   width: 8px; }
-
+.modal__prev[disabled = "disabled"],
+.modal__next[disabled = "disabled"] {
+  opacity: 0.6;
+}
 .modal__select {
   background: url("/src/img/star.png"), transparent; }
 
