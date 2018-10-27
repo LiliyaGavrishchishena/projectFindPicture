@@ -89,7 +89,15 @@ export default class Controller {
           if(img.dataset.fullview === activeImgUrl){
               const currentNumber = Array.from(itemList).indexOf(img);
               const next = Array.from(itemList)[currentNumber + 1];
+              
               this._view.refs.modaleImage.setAttribute('src', next.dataset.fullview);
+              if(currentNumber + 1 > itemList.length){
+                  this._view.refs.next.setAttribute('disabled', 'disabled');
+                  this._view.refs.modaleImage.setAttribute('src', activeImgUrl);
+                  console.log(currentNumber + 1 < itemList.length);
+              }
+              console.log(currentNumber + 1 > itemList.length);
+
       }
       });
   }
@@ -102,6 +110,9 @@ export default class Controller {
                 const currentNumber = Array.from(itemList).indexOf(img);
                 const next = Array.from(itemList)[currentNumber - 1];
                 this._view.refs.modaleImage.setAttribute('src', next.dataset.fullview);
+                // if(currentNumber - 1 > 0){
+                //     this._view.refs.prev.setAttribute('disabled', 'disabled')
+                // }
             }
         });
     }
