@@ -83,15 +83,6 @@ export default class View {
 // refs.btnFavourite.addEventListener('click', favoriteOpen);
 // refs.logo.addEventListener('click', favoriteClose);
 
-  popUpOpen(event) {
-    event.preventDefault();
-    const target = event.target;
-    console.log("event target: ", target);  //посмотрите что тут
-    if (target.nodeName !== "LI") return;
-    refs.page.classList.add('modale-open');
-}
-}
-
 /* const refs = {
      page: document.querySelector("body"),
      form: document.querySelector(".header__form"),
