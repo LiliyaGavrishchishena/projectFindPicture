@@ -12,14 +12,18 @@ export default class Model {
     this.images = [];
     this.page = 1;
     this.lastRequest = "";
+    this.totalHits=0;
   }
 
   getRequest(request) {
     if (this.lastRequest === request && request !== "") {
       this.page++;
+      if ((this.images.length+12)>=this.totalHits) {
+        return new Promise(function() {});
+      }
       return getImages(request, this.page).then(data => {
-        this.images = [...new Set([...this.images, ...data])];
-        return data;
+        this.images = [...new Set([...this.images, ...data.hits])];
+        return data.hits;
       });
     } else {
       this.page = 1;
@@ -27,7 +31,8 @@ export default class Model {
       this.images = [];
 
       return getImages(request, this.page).then(data => {
-        return (this.images = data);
+        this.totalHits=data.totalHits;
+        return (this.images = data.hits);
       });
     }
   }

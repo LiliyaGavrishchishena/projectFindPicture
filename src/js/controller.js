@@ -52,7 +52,7 @@ export default class Controller {
 
   handleShowMore(e) {
     e.preventDefault();
-    const val = this._model.request;
+    const val = this._view.refs.input.value;
     this._model.getRequest(val).then(createdItems => {
       if (createdItems === undefined) return;
       this._view.addPicture(createdItems);
@@ -75,6 +75,7 @@ export default class Controller {
 
     const activeImgUrl = this._view.refs.modaleImage.getAttribute('src');
     const itemList = this._view.refs.pictList.querySelectorAll('img');
+    this._view.refs.page.classList.add('modale-open');
       Array.from(itemList).map(img => {
           if(img.dataset.fullview === activeImgUrl) {
               const currentNumber = Array.from(itemList).indexOf(img);
