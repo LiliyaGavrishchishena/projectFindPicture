@@ -56,3 +56,8 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# IntellijIdea files
+*.iml
+.idea
+out

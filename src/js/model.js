@@ -4,8 +4,8 @@ import {
   getLS,
   setLS,
   removeLS
-} from "./services/apiLocalStorage";
-import { getImages } from "./services/api_pixabay";
+} from './services/apiLocalStorage';
+import { getImages } from './services/api_pixabay';
 
 export default class Model {
   constructor() {
