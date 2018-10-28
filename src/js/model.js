@@ -16,7 +16,10 @@ export default class Model {
   }
 
   getRequest(request) {
-    if (this.lastRequest === request && request !== "") {
+    if (request == "") {
+      return new Promise(function() {});
+    }
+    if (this.lastRequest === request) {
       this.page++;
       if ((this.images.length+12)>=this.totalHits) {
         return new Promise(function() {});
