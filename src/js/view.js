@@ -7,7 +7,7 @@ export default class View {
     this.pictList = document.querySelector('.picture__list');
     this.showMoreBtn = document.querySelector('.js-more');
     this.page = document.querySelector('body');
-    // this.delete = document.querySelector('.js-delete');
+
     this.listFavorites = document.querySelector('.favorites__list');
     this.btnFavourite = document.querySelector('.header__favorites');
     this.modalBackdrop = document.querySelector('.modal-backdrop');
@@ -34,8 +34,10 @@ export default class View {
     this.pictList.insertAdjacentHTML('beforeend', markup);
   }
 
-  addFavoritesPicture(item) {
-      const markup =  this.createCard(item);
+  addFavoritesPicture(items) {
+      const markup = items.reduce((acc, item) => {
+          return acc + this.createCard(item);
+      }, '');
       this.listFavorites.insertAdjacentHTML('beforeend', markup);
   }
 

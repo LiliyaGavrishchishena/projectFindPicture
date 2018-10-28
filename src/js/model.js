@@ -46,7 +46,7 @@ export default class Model {
       return String(elem.id) === String(imageID);
     });
     if (!getLS(imageID)) setLS(imageID, favoriteElement);
-    return favoriteElement;
+    //return favoriteElement;
   }
 
   removeFromFavorite(imageID) {
