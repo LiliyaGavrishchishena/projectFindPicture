@@ -1,5 +1,3 @@
-// create, read, update, delete
-// before using axios you have to install them, "npm i axios"
 import axios from "axios";
 
 const BASE_URL = "https://pixabay.com/api/";
@@ -17,9 +15,5 @@ export const getImages = (request, page) => {
     })
     .catch(err => {
       console.log(`Error while fetching, with status-code ${err.status}`);
-    }); /*    .then(request => {
-      if (request.ok) {
-        return request.json();
-      }
-    })*/
+    });
 };

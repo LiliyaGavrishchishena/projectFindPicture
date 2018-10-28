@@ -49,7 +49,7 @@ export default class Controller {
     this._view.page.classList.remove('favorites--active');
     const input = this._view.input;
     if (input.value===this._model.lastRequest) {return};
-    
+
     this._model.getRequest(input.value).then(createdItems => {
       if (createdItems === undefined) return;
       this._view.init(createdItems);
@@ -214,27 +214,3 @@ export default class Controller {
     this._view.btnFavourite.classList.add('js-home');
   }
 }
-
-// {largeImageURL: "https://pixabay.com/get/ea32b70720f1083ed1584d05fb1d4796e77fe0d71bb90c4090f4c17fa0efb4b9d0_1280.jpg", webformatHeight: 426,
-//     webformatWidth: 640,
-//     likes: 40, imageWidth: 5905,
-//      …}comments: 40
-// downloads: 1094
-// favorites: 9
-// id: 3768859
-// imageHeight:3938
-// imageSize: 5472525
-// imageWidth: 5905
-// largeImageURL: "https://pixabay.com/get/ea32b70720f1083ed1584d05fb1d4796e77fe0d71bb90c4090f4c17fa0efb4b9d0_1280.jpg"
-// likes: 40
-// pageURL: "https://pixabay.com/en/rose-romantic-love-rose-bloom-3768859/"
-// previewHeight: 99
-// previewURL: "https://cdn.pixabay.com/photo/2018/10/23/20/12/rose-3768859_150.jpg"
-// previewWidth: 150tags: "rose, romantic, love"type: "photo"user: "KleineKiwi"
-// userImageURL: "https://cdn.pixabay.com/user/2018/10/07/19-51-01-992_250x250.jpeg"
-// user_id: 9883074
-// views: 1336
-// webformatHeight: 426
-// webformatURL: "https://pixabay.com/get/ea32b70720f1083ed1584d05fb1d4796e77fe0d71bb90c4090f4c17fa0efb4b9d0_640.jpg"
-// webformatWidth: 640
-// __proto__: Object
