@@ -58,7 +58,7 @@ const LOCALSTORAGE = (w => {
   return publicAPI;
 })(window);
 
-export const keyLS = LOCALSTORAGE.getAll; //'pictureList'; // all favorive images
+export const keyLS = LOCALSTORAGE.getAll;
 export const isActiveLS = LOCALSTORAGE.isActive;
 export const getLS = LOCALSTORAGE.get;
 export const setLS = LOCALSTORAGE.set;
