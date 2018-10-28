@@ -1,22 +1,23 @@
 // create, read, update, delete
 // before using axios you have to install them, "npm i axios"
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'https://pixabay.com/api/';
-const API_KEY = '10482228-408f6b22fcb86c00bbed30e3f';
-const RETURN_QUANTITY = '12';
-
+const BASE_URL = "https://pixabay.com/api/";
+const API_KEY = "10482228-408f6b22fcb86c00bbed30e3f";
+const RETURN_QUANTITY = "12";
 
 export const getImages = (request, page) => {
-  return axios.get(
-    `${BASE_URL}?key=${API_KEY}&q=${request}&per_page=${RETURN_QUANTITY}&page=${page}`
-  ).then(response => {
-    console.log(response);
-    return response.data;
-  })
+  return axios
+    .get(
+      `${BASE_URL}?key=${API_KEY}&q=${request}&per_page=${RETURN_QUANTITY}&page=${page}`
+    )
+    .then(response => {
+      console.log(response);
+      return response.data;
+    })
     .catch(err => {
       console.log(`Error while fetching, with status-code ${err.status}`);
-    });  /*    .then(request => {
+    }); /*    .then(request => {
       if (request.ok) {
         return request.json();
       }
