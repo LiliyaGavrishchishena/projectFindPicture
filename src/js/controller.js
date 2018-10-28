@@ -39,9 +39,9 @@ export default class Controller {
       'click',
       this.handleFavouriteList.bind(this));
 
-    // this._view.delete.addEventListener(
-    //     'click',
-    //     this.favoriteItemDelete.bind(this));
+    this._view.listFavorites.addEventListener(   
+        'click',                                 
+        this.favoriteItemDelete.bind(this));     
   }
 
   handleFormSubmit(e) {
@@ -94,6 +94,18 @@ export default class Controller {
       }
     });
     document.addEventListener('keydown', this.popUpClose.bind(this));
+    const currentId =  this.getId()
+    this.inFavoriteIs(currentId);
+  }
+
+  inFavoriteIs(id){
+      const inFavorit = this._model.getFavoriteList().find(item => item.id == id)    ;
+      console.log(inFavorit)
+        if(inFavorit) {
+           this._view.select.setAttribute('disabled', 'disabled');
+        }else {
+           this._view.select.removeAttribute('disabled');
+        }
   }
 
   popUpClose(e) {
@@ -111,7 +123,9 @@ export default class Controller {
   popUpNext() {
     const activeImgUrl = this._view.modaleImage.getAttribute('src');
     const itemList = this._view.pictList.querySelectorAll('img');
-
+      const currentId =  this.getId()
+      console.log(currentId)
+      this.inFavoriteIs(currentId);   
     Array.from(itemList).map(img => {
       if (img.dataset.fullview === activeImgUrl) {
         const currentNumber = Array.from(itemList).indexOf(img);
@@ -131,6 +145,7 @@ export default class Controller {
   popUpPrev() {
     const activeImgUrl = this._view.modaleImage.getAttribute('src');
     const itemList = this._view.pictList.querySelectorAll('img');
+    this.inFavoriteIs(this.getId());
     Array.from(itemList).map(img => {
       if (img.dataset.fullview === activeImgUrl) {
         const currentNumber = Array.from(itemList).indexOf(img);
@@ -160,16 +175,18 @@ export default class Controller {
 
   popUpSelect(e) {
     const currentId = this.getId();
-    //вызывает функцию, Добавить в избранное на текущем iD
-    const itemObj = this._model.addToFavorite(currentId);
-    this._view.addFavoritesPicture(itemObj);
+    this._model.addToFavorite(currentId);
+    this.inFavoriteIs(this.getId());
   }
-  //Єто не готово
-  // favoriteItemDelete(e) {
-  //   console.log(target)
-  //     const currentId = target.id;
-  //     this._model.removeFromFavorite(currentId)
-  // }
+
+  favoriteItemDelete(e) {
+    const target = e.target;
+    if (target.nodeName !== "BUTTON") return;
+    const currentItem = target.closest('li');
+    const currentId = target.closest('li').dataset.idItem;
+    this._model.removeFromFavorite(currentId);
+    currentItem.remove();
+  }
 
   handleHeaderLogo(e) {
     e.preventDefault();
@@ -181,13 +198,14 @@ export default class Controller {
 
   handleFavouriteList(e) {
     e.preventDefault();
-    //console.log(this._view.btnFavourite.classList.contains('js-home'));
+      this._view.addFavoritesPicture(this._model.getFavoriteList() )
     if (this._view.btnFavourite.classList.contains('js-home')) {
       this._view.btnFavourite.classList.remove('js-home');
       this._view.page.classList.remove('favorites--active');
       this._view.btnFavourite.textContent = 'Избранное';
       return;
     }
+
     this._view.page.classList.add('favorites--active');
     this._view.btnFavourite.textContent = 'На главную';
     this._view.btnFavourite.classList.add('js-home');
