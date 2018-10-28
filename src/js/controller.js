@@ -47,7 +47,8 @@ export default class Controller {
   handleFormSubmit(e) {
     e.preventDefault();
     const input = this._view.input;
-
+    if (input.value===this._model.lastRequest) {return};
+    
     this._model.getRequest(input.value).then(createdItems => {
       if (createdItems === undefined) return;
       this._view.init(createdItems);
