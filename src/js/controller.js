@@ -15,7 +15,7 @@ export default class Controller {
       'click',
       this.popUpOpen.bind(this));
 
-    this._view.close.addEventListener(
+    this._view.modalBackdrop.addEventListener(
       'click',
       this.popUpClose.bind(this));
 
@@ -39,9 +39,9 @@ export default class Controller {
       'click',
       this.handleFavouriteList.bind(this));
 
-    this._view.delete.addEventListener(
-        'click',
-        this.favoriteItemDelite.bind(this));
+    // this._view.delete.addEventListener(
+    //     'click',
+    //     this.favoriteItemDelete.bind(this));
   }
 
   handleFormSubmit(e) {
@@ -79,10 +79,7 @@ export default class Controller {
     if (target.nodeName !== 'LI') return;
     this._view.page.classList.add('modale-open');
     this._view.modaleImage.setAttribute('src', targetImg.dataset.fullview);
-    this._view.modaleImage.setAttribute(
-      'alt',
-      targetImg.getAttribute('alt')
-    );
+    this._view.modaleImage.setAttribute('alt', targetImg.getAttribute('alt'));
     const activeImgUrl = this._view.modaleImage.getAttribute('src');
     const itemList = this._view.pictList.querySelectorAll('img');
     Array.from(itemList).map(img => {
@@ -96,12 +93,19 @@ export default class Controller {
         }
       }
     });
+    document.addEventListener('keydown', this.popUpClose.bind(this));
   }
 
-  popUpClose() {
-    this._view.page.classList.remove('modale-open');
-    this._view.prev.removeAttribute('disabled');
-    this._view.next.removeAttribute('disabled');
+  popUpClose(e) {
+    if (
+      e.target === this._view.modalBackdrop ||
+      e.target === this._view.close || e.key === 'Escape'
+    ) {
+      this._view.page.classList.remove('modale-open');
+      this._view.prev.removeAttribute('disabled');
+      this._view.next.removeAttribute('disabled');
+    }
+    document.removeEventListener('keydown', this.popUpClose.bind(this));
   }
 
   popUpNext() {
@@ -115,17 +119,13 @@ export default class Controller {
         if (currentNumber + 1 < itemList.length) {
           this._view.next.removeAttribute('disabled');
           this._view.prev.removeAttribute('disabled');
-          this._view.modaleImage.setAttribute(
-            'src',
-            next.dataset.fullview
-          );
+          this._view.modaleImage.setAttribute('src', next.dataset.fullview);
         }
         if (currentNumber + 1 === itemList.length - 1) {
           this._view.next.setAttribute('disabled', 'disabled');
         }
       }
     });
-
   }
 
   popUpPrev() {
@@ -138,10 +138,7 @@ export default class Controller {
         this._view.modaleImage.setAttribute('src', next.dataset.fullview);
         if (currentNumber - 1 > 0) {
           this._view.next.removeAttribute('disabled');
-          this._view.modaleImage.setAttribute(
-            'src',
-            next.dataset.fullview
-          );
+          this._view.modaleImage.setAttribute('src', next.dataset.fullview);
         } else if (currentNumber - 1 === 0) {
           this._view.prev.setAttribute('disabled', 'disabled');
         }
@@ -149,36 +146,37 @@ export default class Controller {
     });
   }
 
-  getId(){
-      const itemList = this._view.pictList.querySelectorAll('li');
-      const carrentSrc = this._view.modaleImage.getAttribute('src');
-      let currentId;
-      Array.from(itemList).map(item => {
-          if(carrentSrc === item.querySelector('img').dataset.fullview){
-              currentId = item.dataset.idItem
-          }
-      });
-      return currentId;
+  getId() {
+    const itemList = this._view.pictList.querySelectorAll('li');
+    const carrentSrc = this._view.modaleImage.getAttribute('src');
+    let currentId;
+    Array.from(itemList).map(item => {
+      if (carrentSrc === item.querySelector('img').dataset.fullview) {
+        currentId = item.dataset.idItem;
+      }
+    });
+    return currentId;
   }
 
   popUpSelect(e) {
-      const currentId = this.getId();
-      //вызывает функцию, Добавить в избранное на текущем iD
-      const itemObj = this._model.addToFavorite(currentId);
-      this._view.addFavoritesPicture(itemObj);
+    const currentId = this.getId();
+    //вызывает функцию, Добавить в избранное на текущем iD
+    const itemObj = this._model.addToFavorite(currentId);
+    this._view.addFavoritesPicture(itemObj);
   }
-//Єто не готово
-  favoriteItemDelite(e) {
-    console.log(target)
-      const currentId = target.id;
-      this._model.removeFromFavorite(currentId)
-  }
+  //Єто не готово
+  // favoriteItemDelete(e) {
+  //   console.log(target)
+  //     const currentId = target.id;
+  //     this._model.removeFromFavorite(currentId)
+  // }
 
   handleHeaderLogo(e) {
     e.preventDefault();
     this._view.init([]);
     this._view.input.value = '';
     this._view.showMoreBtn.classList.remove('active');
+    this._view.page.classList.remove('favorites--active');
   }
 
   handleFavouriteList(e) {
