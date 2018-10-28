@@ -38,7 +38,7 @@ export default class View {
       const markup = items.reduce((acc, item) => {
           return acc + this.createCard(item);
       }, '');
-      this.listFavorites.insertAdjacentHTML('beforeend', markup);
+      this.listFavorites.innerHTML = markup;
   }
 
   createCard(item) {
