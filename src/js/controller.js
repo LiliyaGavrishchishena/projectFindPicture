@@ -96,13 +96,12 @@ export default class Controller {
       }
     });
     document.addEventListener('keydown', this.popUpClose.bind(this));
-    const currentId =  this.getId()
+    const currentId =  this.getId(activeImgUrl)
     this.inFavoriteIs(currentId);
   }
 
   inFavoriteIs(id){
-      const inFavorit = this._model.getFavoriteList().find(item => item.id == id)    ;
-      console.log(inFavorit)
+      const inFavorit = this._model.getFavoriteList().find(item => item.id == id);
         if(inFavorit) {
            this._view.select.setAttribute('disabled', 'disabled');
         }else {
@@ -125,13 +124,16 @@ export default class Controller {
   popUpNext() {
     const activeImgUrl = this._view.modaleImage.getAttribute('src');
     const itemList = this._view.pictList.querySelectorAll('img');
-      const currentId =  this.getId()
-      console.log(currentId)
-      this.inFavoriteIs(currentId);
+      const currentId =  this.getId(activeImgUrl)
+
     Array.from(itemList).map(img => {
       if (img.dataset.fullview === activeImgUrl) {
         const currentNumber = Array.from(itemList).indexOf(img);
         const next = Array.from(itemList)[currentNumber + 1];
+
+          const currentId =  this.getId(next.dataset.fullview)
+          this.inFavoriteIs(currentId);
+
         if (currentNumber + 1 < itemList.length) {
           this._view.next.removeAttribute('disabled');
           this._view.prev.removeAttribute('disabled');
@@ -147,11 +149,14 @@ export default class Controller {
   popUpPrev() {
     const activeImgUrl = this._view.modaleImage.getAttribute('src');
     const itemList = this._view.pictList.querySelectorAll('img');
-    this.inFavoriteIs(this.getId());
     Array.from(itemList).map(img => {
       if (img.dataset.fullview === activeImgUrl) {
         const currentNumber = Array.from(itemList).indexOf(img);
         const next = Array.from(itemList)[currentNumber - 1];
+
+          const currentId =  this.getId(next.dataset.fullview)
+          this.inFavoriteIs(currentId);
+
         this._view.modaleImage.setAttribute('src', next.dataset.fullview);
         if (currentNumber - 1 > 0) {
           this._view.next.removeAttribute('disabled');
@@ -163,12 +168,11 @@ export default class Controller {
     });
   }
 
-  getId() {
+  getId(link) {
     const itemList = this._view.pictList.querySelectorAll('li');
-    const carrentSrc = this._view.modaleImage.getAttribute('src');
     let currentId;
     Array.from(itemList).map(item => {
-      if (carrentSrc === item.querySelector('img').dataset.fullview) {
+      if (link === item.querySelector('img').dataset.fullview) {
         currentId = item.dataset.idItem;
       }
     });
@@ -176,9 +180,9 @@ export default class Controller {
   }
 
   popUpSelect(e) {
-    const currentId = this.getId();
+    const currentId = this.getId(this._view.modaleImage.getAttribute('src'));
     this._model.addToFavorite(currentId);
-    this.inFavoriteIs(this.getId());
+    this.inFavoriteIs(currentId);
   }
 
   favoriteItemDelete(e) {
@@ -197,6 +201,7 @@ export default class Controller {
     this._view.showMoreBtn.classList.remove('active');
     this._view.page.classList.remove('favorites--active');
     this._view.btnFavourite.textContent = 'Избранное';
+    this._view.btnFavourite.classList.remove('js-home');
   }
 
   handleFavouriteList(e) {

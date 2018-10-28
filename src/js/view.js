@@ -2,14 +2,14 @@ import template from "./../templates/card.hbs";
 
 export default class View {
   constructor() {
-    this.form = document.querySelector('.form');
-    this.input = this.form.querySelector('.form__input');
+    this.form = document.querySelector('.js-form');
+    this.input = this.form.querySelector('.js-input');
     this.pictList = document.querySelector('.picture__list');
     this.showMoreBtn = document.querySelector('.js-more');
     this.page = document.querySelector('body');
 
     this.listFavorites = document.querySelector('.favorites__list');
-    this.btnFavourite = document.querySelector('.header__favorites');
+    this.btnFavourite = document.querySelector('.js-favourites');
     this.modalBackdrop = document.querySelector('.modal-backdrop');
     this.modaleImage = document.querySelector('.modal__img');
     this.home = document.querySelector('.js-home');
