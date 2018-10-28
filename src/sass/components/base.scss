@@ -294,7 +294,19 @@ button, a {
   right: 30px;
   top: 30px;
   padding-left: 20px;
-  background: url ("../../img/close.png"), rgba(0, 0, 0, 0.6);
+
+  &:before {
+    position: absolute;
+    left: 0;
+    display: block;
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: url("/src/img/icon.png");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
 }
 
 .favorites{

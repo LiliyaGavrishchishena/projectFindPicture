@@ -39,13 +39,14 @@ export default class Controller {
       'click',
       this.handleFavouriteList.bind(this));
 
-    this._view.listFavorites.addEventListener(   
-        'click',                                 
-        this.favoriteItemDelete.bind(this));     
+    this._view.listFavorites.addEventListener(
+        'click',
+        this.favoriteItemDelete.bind(this));
   }
 
   handleFormSubmit(e) {
     e.preventDefault();
+    this._view.page.classList.remove('favorites--active');
     const input = this._view.input;
 
     this._model.getRequest(input.value).then(createdItems => {
@@ -125,7 +126,7 @@ export default class Controller {
     const itemList = this._view.pictList.querySelectorAll('img');
       const currentId =  this.getId()
       console.log(currentId)
-      this.inFavoriteIs(currentId);   
+      this.inFavoriteIs(currentId);
     Array.from(itemList).map(img => {
       if (img.dataset.fullview === activeImgUrl) {
         const currentNumber = Array.from(itemList).indexOf(img);
@@ -194,6 +195,7 @@ export default class Controller {
     this._view.input.value = '';
     this._view.showMoreBtn.classList.remove('active');
     this._view.page.classList.remove('favorites--active');
+    this._view.btnFavourite.textContent = 'Избранное';
   }
 
   handleFavouriteList(e) {
