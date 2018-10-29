@@ -256,7 +256,7 @@ button, a {
   height: 24px;
   padding: 0;
   opacity: 0;
-  background: url("/src/img/close.png"),#cddc39;
+  background: url("../img/close.png"),#cddc39;
   background-position: center center;
   background-size: auto;
   background-repeat: no-repeat;
@@ -293,7 +293,7 @@ button, a {
     content: "";
     width: 16px;
     height: 16px;
-    background: url("/src/img/icon.png");
+    background: url("../img/icon.png");
     background-repeat: no-repeat;
     background-position: center;
   }
@@ -433,20 +433,20 @@ body:not(.modale-open) .modal__img {
   opacity: 0.7; }
 
 .modal__prev {
-  background: url("/src/img/prev.png"), transparent;
+  background: url("../img/prev.png"), transparent;
   width: 8px; }
 .modal__next {
-  background: url("/src/img/next.png"), transparent;
+  background: url("../img/next.png"), transparent;
   width: 8px; }
 .modal__prev[disabled = "disabled"],
 .modal__next[disabled = "disabled"] {
   opacity: 0.6;
 }
 .modal__select {
-  background: url("/src/img/star.png"), transparent; }
+  background: url("../img/star.png"), transparent; }
 
 .modal__close {
-  background: url("/src/img/close.png"), transparent; }
+  background: url("../img/close.png"), transparent; }
 
 .modal__select[disabled = "disabled"]{
   -webkit-transform: scale(1.6);
