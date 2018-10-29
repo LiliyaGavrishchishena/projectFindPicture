@@ -10,7 +10,6 @@ export const getImages = (request, page) => {
       `${BASE_URL}?key=${API_KEY}&q=${request}&per_page=${RETURN_QUANTITY}&page=${page}`
     )
     .then(response => {
-      console.log(response);
       return response.data;
     })
     .catch(err => {
