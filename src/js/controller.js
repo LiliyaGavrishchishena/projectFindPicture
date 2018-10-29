@@ -202,6 +202,7 @@ export default class Controller {
     this._view.page.classList.remove('favorites--active');
     this._view.btnFavourite.textContent = 'Избранное';
     this._view.btnFavourite.classList.remove('js-home');
+    this._model.lastRequest="";
   }
 
   handleFavouriteList(e) {
