@@ -200,7 +200,7 @@ export default class Controller {
     this._view.input.value = '';
     this._view.showMoreBtn.classList.remove('active');
     this._view.page.classList.remove('favorites--active');
-    this._view.btnFavourite.textContent = 'Избранное';
+    this._view.btnFavourite.innerHTML = '<span class="header-star">&#x2605;</span>Избранное';
     this._view.btnFavourite.classList.remove('js-home');
     this._model.lastRequest="";
   }
@@ -211,7 +211,7 @@ export default class Controller {
     if (this._view.btnFavourite.classList.contains('js-home')) {
       this._view.btnFavourite.classList.remove('js-home');
       this._view.page.classList.remove('favorites--active');
-      this._view.btnFavourite.textContent = 'Избранное';
+      this._view.btnFavourite.innerHTML = '<span class="header-star">&#x2605;</span>Избранное';
       return;
     }
 
